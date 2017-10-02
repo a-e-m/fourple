@@ -11,6 +11,8 @@ function combineColors(colors) {
 		if ((Math.max(newColor[0], color[0]) - Math.min(newColor[0], color[0])) > 180)
 			newColor[0] += 360;
 		var lumin1 = color[1] / 100, lumin2 = newColor[1] / 100, total = lumin1 + lumin2;
+		if (total == 0)
+			total = 1;
 		color[0] = (color[0] * (lumin1 / total) + newColor[0] * (lumin2 / total)) % 360;
 		color[1] = (color[1] + newColor[1]) / 2;
 		color[2] = (color[2] + newColor[2]) / 2;
@@ -95,7 +97,7 @@ Wall.prototype.generateColor = function() {
 }
 
 Wall.prototype.colorClose = function(color) {
-	var dist = [40, 20, 20];
+	var dist = [30, 15, 15];
 	for (var i = 0; i < 3; ++i) {
 		if (Math.abs(this.color[i] - color[i]) > dist[i]) {
 			return false;
