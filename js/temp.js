@@ -117,11 +117,11 @@ Wall.prototype.generateColor = function() {
 }
 
 Wall.prototype.colorClose = function(color) {
-	var thisLab = toHSL(this.color);
-	var otherLab = toHSL(this.color);
+	var thisLab = d3.lab(toHSL(this.color));
+	var otherLab = d3.lab(toHSL(color));
 	var distance = Math.pow(thisLab.l - otherLab.l, 2) + Math.pow(thisLab.a - otherLab.a, 2) + Math.pow(thisLab.b - otherLab.b, 2);
 	console.log(Math.sqrt(distance));
-	return distance < Math.pow(30, 2);
+	return distance < Math.pow(10, 2);
 }
 
 Wall.prototype.update = function(p) {
