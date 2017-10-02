@@ -120,7 +120,7 @@ Wall.prototype.colorClose = function(color) {
 	var thisLab = toHSL(this.color);
 	var otherLab = toHSL(this.color);
 	var distance = Math.pow(thisLab.l - otherLab.l, 2) + Math.pow(thisLab.a - otherLab.a, 2) + Math.pow(thisLab.b - otherLab.b, 2);
-	return distance < Math.pow(5, 2);
+	return distance < Math.pow(10, 2);
 }
 
 Wall.prototype.update = function(p) {
