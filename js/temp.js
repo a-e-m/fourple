@@ -10,7 +10,8 @@ function combineColors(colors) {
 		var newColor = [colors[i][0], colors[i][1], colors[i][2]];
 		if ((Math.max(newColor[0], color[0]) - Math.min(newColor[0], color[0])) > 180)
 			newColor[0] += 360;
-		color[0] = ((color[0] + newColor[0]) / 2) % 360;
+		var lumin1 = color[1] / 100, lumin2 = newColor[1] / 100, total = lumin1 + lumin2;
+		color[0] = (color[0] * (lumin1 / total) + newColor[0] * (lumin2 / total)) % 360;
 		color[1] = (color[1] + newColor[1]) / 2;
 		color[2] = (color[2] + newColor[2]) / 2;
 	}
