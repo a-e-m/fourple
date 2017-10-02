@@ -2,7 +2,7 @@ var main = {
 	state: {width: 600, height: 600, gamepad: null, joyX: 0, joyY: 0},
 	mouse: {x: 100, y: 200, relX: 0, relY: 0, down: false, mousedown: false},
 	//colors: [[0, 100, 50], [61, 100, 50], [240, 100, 50], [0, 0, 0]],
-	colors: [[0, 0, 10], [0, 0, 70], [0, 50, 50]],
+	colors: [[90, 100, 50], [240, 100, 50], [0, 100, 50], [0, 0, 0]],
 	metrics: {timesDown: 0, timesUp: 0, ballsCaught: 0},
 	rect: function(x, y, w, h, color) {
 		main.context.fillStyle = color;

@@ -2,8 +2,27 @@ function randint(start, end) {
 	return Math.floor(Math.random() * (end - start + 1) + start);
 }
 
+function toHSL(color) {
+	return d3.hsl(color[0], color[1] / 100, color[2] / 100);
+}
+
 function combineColors(colors) {
 	if (colors.length === 0)
+		return [0, 0, 0];
+	var total = [0, 0, 0];
+	for (var i = 0; color = colors[i]; ++i) {
+		var hsl = toHSL(color);
+		var lab = d3.lab(hsl);
+		total[0] += lab.l;
+		total[1] += lab.a;
+		total[2] += lab.b;
+	}
+	for (var j = 0; j < total.length; ++j)
+		total[j] /= colors.length;
+	var result = d3.lab(total[0], total[1], total[2]);
+	var hsl = d3.hsl(result);
+	return [hsl.h, hsl.s * 100, hsl.l * 100];
+	/*if (colors.length === 0)
 		return [0, 0, 0];
 	var color = [colors[0][0], colors[0][1], colors[0][2]];
 	for (var i = 1; i < colors.length; ++i) {
@@ -17,7 +36,8 @@ function combineColors(colors) {
 		color[1] = (color[1] + newColor[1]) / 2;
 		color[2] = (color[2] + newColor[2]) / 2;
 	}
-	return color;
+	return color;*/
+	
 	
 }
 
@@ -97,12 +117,8 @@ Wall.prototype.generateColor = function() {
 }
 
 Wall.prototype.colorClose = function(color) {
-	var dist = [30, 15, 15];
-	for (var i = 0; i < 3; ++i) {
-		if (Math.abs(this.color[i] - color[i]) > dist[i]) {
-			return false;
-		}
-	}
+	var thisLab = toHSL(this.color);
+	var otherLab = toHSL(this.color);
 	return true;
 }
 
