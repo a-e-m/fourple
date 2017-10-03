@@ -241,10 +241,19 @@ Paddle.prototype.update = function(balls) {
 
 function Game() {
 	main.metrics.start = (new Date).getTime();
-    var lw = new Wall(0, 0, 10, main.state.height);
+}
+
+Game.prototype.init = function() {
+	var lw = new Wall(0, 0, 10, main.state.height);
     var tw = new Wall(0, 0, main.state.width, 10);
+	while (_.isEqual(lw.color, tw.color))
+		tw.color = tw.generateColor();
     var rw = new Wall(main.state.width - 10, 0, 10, main.state.height);
+	while (_.isEqual(lw.color, rw.color) || _.isEqual(tw.color, rw.color))
+		rw.color = rw.generateColor();
     var bw = new Wall(0, main.state.height - 10, main.state.width, 10);
+	while (_.isEqual(lw.color, bw.color) || _.isEqual(tw.color, bw.color) || _.isEqual(tw.color, bw.color))
+		bw.color = bw.generateColor();
     this.walls = [lw, tw, rw, bw];
     
     this.balls = [];
@@ -295,9 +304,14 @@ Game.prototype.update = function() {
 	});
 	
 	if (this.walls.length === 0) {
-		main.metrics.end = (new Date).getTime();
-		main.recordMetrics();
-		window.location.replace('win.html')
+		main.colors = main.levels[++main.state.level];
+		if (!main.colors) {
+			main.metrics.end = (new Date).getTime();
+			main.recordMetrics();
+			window.location.replace('win.html')
+		} else {
+			this.init();	
+		}
 	}
 	
 	this.balls.forEach(function(b) {

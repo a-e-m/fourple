@@ -1,8 +1,10 @@
 var main = {
-	state: {width: 600, height: 600, gamepad: null, joyX: 0, joyY: 0},
+	state: {width: 600, height: 600, gamepad: null, joyX: 0, joyY: 0, level: 3},
 	mouse: {x: 100, y: 200, relX: 0, relY: 0, down: false, mousedown: false},
 	//colors: [[0, 100, 50], [61, 100, 50], [240, 100, 50], [0, 0, 0]],
-	colors: [[90, 100, 50], [240, 100, 50], [0, 100, 50], [0, 0, 0]],
+	colors: null,
+	levels: [[[0, 0, 20], [0, 0, 70]], [[0, 0, 20], [0, 0, 70], [0, 100, 50]], [[0, 0, 70], [240, 100, 50], [0, 100, 50], [0, 0, 20]],
+	[[0, 0, 70], [240, 100, 50], [290, 100, 50], [180, 100, 50], [0, 0, 20]]],
 	metrics: {timesDown: 0, timesUp: 0, ballsCaught: 0},
 	rect: function(x, y, w, h, color) {
 		main.context.fillStyle = color;
@@ -33,7 +35,9 @@ var main = {
 			main.mouse.mousedown = false;
 		});
 		
+		main.colors = main.levels[main.state.level];
 		main.game = new Game();
+		main.game.init();
 		
 		main.timer = setInterval(function() {handleGamepad(); main.game.update();}, 33);
 	},
