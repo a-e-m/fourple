@@ -1,5 +1,5 @@
 var main = {
-	state: {width: 600, height: 600, gamepad: null, joyX: 0, joyY: 0, level: 5},
+	state: {width: 600, height: 600, gamepad: null, joyX: 0, joyY: 0, level: 0},
 	mouse: {x: 100, y: 200, relX: 0, relY: 0, down: false, mousedown: false},
 	//colors: [[0, 100, 50], [61, 100, 50], [240, 100, 50], [0, 0, 0]],
 	colors: null,
