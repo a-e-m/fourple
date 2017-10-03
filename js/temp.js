@@ -10,7 +10,7 @@ function combineColors(colors) {
 	if (colors.length === 0)
 		return [0, 0, 0];
 	var total = [0, 0, 0];
-	for (var i = 0; color = colors[i]; ++i) {
+	for (var i = 0, color; color = colors[i]; ++i) {
 		var hsl = toHSL(color);
 		var lab = d3.lab(hsl);
 		total[0] += lab.l;
