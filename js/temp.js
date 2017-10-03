@@ -21,7 +21,7 @@ function combineColors(colors) {
 		total[j] /= colors.length;
 	var result = d3.lab(total[0], total[1], total[2]);
 	var hsl = d3.hsl(result);
-	return [hsl.h, hsl.s * 100, hsl.l * 100];
+	return [hsl.h || 0, (hsl.s * 100) || 0, (hsl.l * 100) || 0];
 	/*if (colors.length === 0)
 		return [0, 0, 0];
 	var color = [colors[0][0], colors[0][1], colors[0][2]];
